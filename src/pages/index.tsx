@@ -1,3 +1,4 @@
+import { Nav } from '@/components/Nav';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
@@ -7,8 +8,8 @@ const Home: NextPage = () => {
       <Head>
         <title>Image Search</title>
       </Head>
-      <main className="container mx-auto p-4">
-        <h1 className="text-4xl font-bold text-center">Image Search</h1>
+      <main className="mx-auto">
+        <Nav />
         Add your search and image listing components here
       </main>
     </div>
