@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import { Nav } from '@/components/Nav';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -11,6 +12,7 @@ const Home: NextPage = () => {
       <main className="mx-auto">
         <Nav />
         Add your search and image listing components here
+        <Footer />
       </main>
     </div>
   );
