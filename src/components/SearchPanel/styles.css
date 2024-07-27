@@ -20,6 +20,10 @@
   padding: 16px;
 }
 
+.image_search {
+    display: flex;
+}
+
 .dropdown {
     display: flex;
     justify-content: center;

@@ -13,6 +13,7 @@ import ImageGallery from '@/components/ImageGallery';
 const Home: NextPage = () => {
   const [results, setResults] = useState<Photo[]>([])
   const [page, setPage] = useState(1);
+  const [searchKey, setSearchKey] = useState('');
 
   useEffect(() => {
     setResults([...cars.photos])
@@ -26,13 +27,13 @@ const Home: NextPage = () => {
       <main className="mx-auto">
         <Nav />
         <div className='grid'>
-          <SearchPanel />
+          <SearchPanel setSearchKey={setSearchKey} />
           <FilterPane />
-          <ShowPagination searchKey='' textType='h4' page={page} setPage={setPage} />
+          <ShowPagination searchKey={searchKey} textType='h4' page={page} setPage={setPage} />
           <ImageGallery results={results} />
           <button className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button>
           <hr />
-          <ShowPagination searchKey='' textType='p' page={page} setPage={setPage} />
+          <ShowPagination searchKey={searchKey} textType='p' page={page} setPage={setPage} />
         </div>
         <Footer />
       </main>
