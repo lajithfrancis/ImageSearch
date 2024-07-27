@@ -1,0 +1,33 @@
+.search_panel {
+ display: flex;
+}
+
+.search_input {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.search_input input {
+    flex: 1;
+    background-color: transparent;
+}
+
+.dropdown,
+.search_input,
+.image_search {
+  border: 1px solid black;
+  padding: 16px;
+}
+
+.dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.category {
+    display: flex;
+    align-items: center;
+}

@@ -1,5 +1,8 @@
+import FilterPane from '@/components/FilterPane';
 import Footer from '@/components/Footer';
 import { Nav } from '@/components/Nav';
+import ShowPagination from '@/components/Pagination/ShowPagination';
+import SearchPanel from '@/components/SearchPanel';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
@@ -11,7 +14,12 @@ const Home: NextPage = () => {
       </Head>
       <main className="mx-auto">
         <Nav />
-        Add your search and image listing components here
+        <div className=''>
+          <SearchPanel />
+          <FilterPane />
+          <ShowPagination searchKey='cars' textType='h4' />
+          <ShowPagination searchKey='test' textType='p' />
+        </div>
         <Footer />
       </main>
     </div>

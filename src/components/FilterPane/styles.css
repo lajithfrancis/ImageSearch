@@ -1,0 +1,11 @@
+.filter_pane > ul {
+    display: flex;
+    margin-top: 1rem;
+    width: fit-content;
+    margin: 8px;
+}
+
+.filter_pane > ul li {
+    border: 1px solid black;
+    padding: 16px 40px;
+}

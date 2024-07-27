@@ -4,11 +4,7 @@ li {
     padding: 5px 10px;
 }
 
-li:nth-last-child(1) {
+nav li:nth-last-child(1) {
     border: 1px solid white;
     border-radius: 5px;
-}
-
-h1 {
-    font-family: "Oswald", sans-serif;
 }
