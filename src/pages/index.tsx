@@ -5,8 +5,16 @@ import ShowPagination from '@/components/Pagination/ShowPagination';
 import SearchPanel from '@/components/SearchPanel';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
+import cars from '@/app/data/cars'
+import { Photo, SearchList } from '@/app/interfaces/SearchList';
 
 const Home: NextPage = () => {
+  const [results, setResults] = useState<Photo[]>([])
+  useEffect(() => {
+    console.log('called', cars)
+    setResults([...cars.photos])
+  }, [])
   return (
     <div className="min-h-screen bg-gray-100">
       <Head>
@@ -17,8 +25,8 @@ const Home: NextPage = () => {
         <div className=''>
           <SearchPanel />
           <FilterPane />
-          <ShowPagination searchKey='cars' textType='h4' />
-          <ShowPagination searchKey='test' textType='p' />
+          <ShowPagination searchKey='' textType='h4' />
+          <ShowPagination searchKey='' textType='p' />
         </div>
         <Footer />
       </main>
