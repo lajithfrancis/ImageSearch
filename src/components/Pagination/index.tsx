@@ -1,8 +1,12 @@
 import React, { useState, MouseEvent, ChangeEvent } from 'react';
 import TablePagination from '@mui/material/TablePagination';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function Pagination() {
-    const [page, setPage] = useState(2);
+export default function Pagination({ page, setPage }: {
+    page: number,
+    setPage: React.Dispatch<React.SetStateAction<number>>
+}) {
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleChangePage = (
@@ -20,13 +24,26 @@ export default function Pagination() {
     };
 
     return (
-        <TablePagination
-            component="div"
-            count={100}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        // <TablePagination
+        //     component="div"
+        //     count={100}
+        //     page={page}
+        //     onPageChange={handleChangePage}
+        //     rowsPerPage={rowsPerPage}
+        //     onRowsPerPageChange={handleChangeRowsPerPage}
+        // />
+        <div className='flex gap-4 items-center'>
+            <div className='flex gap-4 items-center'>
+                <p>Page {page} or {100}</p>
+                <button><FontAwesomeIcon icon={faAngleLeft} /></button>
+                <button><FontAwesomeIcon icon={faAngleRight} /></button>
+            </div>
+            <div className='flex gap-4 items-center'>
+                <p>Go to page</p>
+                <input className='w-14 border' />
+                <button><FontAwesomeIcon icon={faAngleRight} /></button>
+            </div>
+
+        </div>
     );
 }
