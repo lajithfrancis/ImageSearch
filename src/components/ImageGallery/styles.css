@@ -1,8 +1,8 @@
 .masonry { 
     display: flex;
     flex-flow: row wrap;
-    width: 100%;
-    margin: 20px auto;
+    /* width: 100%; */
+    margin: 10px;
   }
   
   .masonry-brick {

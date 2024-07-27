@@ -14,3 +14,8 @@
     background-color: black;
     color: white;
 }
+
+.filter_pane {
+    margin-top: 3px;
+    background-color: rgb(230, 229, 229);
+}

@@ -14,7 +14,7 @@ export default function ShowPagination({ searchKey, textType = "h4", page, setPa
     return (
         <div className='flex justify-between items-center px-4 pagination_bar'>
             <TextTag>{!isHidden && 'Search Results for: '}{searchKey} Stock photos and images</TextTag>
-            <Pagination page={page} setPage={setPage} />
+            <Pagination page={page} setPage={setPage} isHidden={isHidden} />
         </div>
     )
 }
