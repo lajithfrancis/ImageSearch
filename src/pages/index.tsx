@@ -8,6 +8,7 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import cars from '@/app/data/cars'
 import { Photo, SearchList } from '@/app/interfaces/SearchList';
+import ImageGallery from '@/components/ImageGallery';
 
 const Home: NextPage = () => {
   const [results, setResults] = useState<Photo[]>([])
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
           <SearchPanel />
           <FilterPane />
           <ShowPagination searchKey='' textType='h4' />
+          <ImageGallery results={results} />
           <ShowPagination searchKey='' textType='p' />
         </div>
         <Footer />
