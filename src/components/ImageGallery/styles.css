@@ -19,7 +19,19 @@
     object-fit: cover;
   }
 
-  .masonry-brick div {
+  .masonry-brick .name {
+    transform-origin: bottom;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .masonry-brick:hover .name {
+    transform: scaleY(1);
+  }
+
+  .masonry-brick .icon_list {
+    height: 0;
+    overflow: hidden;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -27,4 +39,13 @@
     margin: 1rem;
     display: flex;
     width: fit-content;
+    transition: all .3s ease;
+  }
+
+  .masonry-brick:hover .icon_list {
+    height: 3rem;
+  }
+
+  .masonry-brick .icon_list .icon:hover {
+    background-color: rgb(80, 165, 80);
   }
