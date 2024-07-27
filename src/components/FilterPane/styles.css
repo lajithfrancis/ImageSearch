@@ -10,7 +10,7 @@
     padding: 16px 40px;
 }
 
-.filter_pane > ul li:nth-child(1) {
+.filter_pane > ul > li:nth-child(1) {
     background-color: black;
     color: white;
 }
