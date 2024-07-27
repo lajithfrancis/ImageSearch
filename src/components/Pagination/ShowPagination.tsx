@@ -1,12 +1,13 @@
 import Pagination from ".";
 import './styles.css';
 
-export default function ShowPagination({ searchKey, textType = "h4", page, setPage }:
+export default function ShowPagination({ searchKey, textType = "h4", page, setPage, count }:
     {
         searchKey: string,
         textType: keyof JSX.IntrinsicElements,
         page: number,
-        setPage: React.Dispatch<React.SetStateAction<number>>
+        setPage: React.Dispatch<React.SetStateAction<number>>,
+        count: number
 
     }) {
     const TextTag = textType;
@@ -14,7 +15,7 @@ export default function ShowPagination({ searchKey, textType = "h4", page, setPa
     return (
         <div className='flex justify-between items-center px-4 pagination_bar'>
             <TextTag>{!isHidden && 'Search Results for: '}{searchKey} Stock photos and images</TextTag>
-            <Pagination page={page} setPage={setPage} isHidden={isHidden} />
+            <Pagination page={page} setPage={setPage} isHidden={isHidden} count={count} />
         </div>
     )
 }
