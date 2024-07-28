@@ -9,7 +9,7 @@ export default function ImageCard({ index, item }: {
     const iconStyleClasses = 'relative p-4 rounded bg-gray-800 text-white icon'
     return (
         <div key={index} className="masonry-brick">
-            <img src={item.src.large} alt={item.alt} className="image" />
+            <img src={item.src.large} alt={item.alt} title={item.alt} className="image" />
             <p className="text-sm text-white relative left-2 bottom-8 w-fit name"><b>Photographer: </b>{item.photographer}</p>
             <div className="icon_list">
                 <FontAwesomeIcon className={iconStyleClasses} icon={faCartShopping} />
