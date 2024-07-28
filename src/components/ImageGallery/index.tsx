@@ -6,7 +6,7 @@ export default function ImageGallery({ results }: { results: Photo[] }) {
     return (
         <div className="masonry">
             {results.map((item, index) => (
-                <ImageCard index={index} item={item} />
+                <ImageCard key={index} index={index} item={item} />
             ))}
         </div>
     )

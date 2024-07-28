@@ -16,9 +16,10 @@ const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
   const [searchKey, setSearchKey] = useState('');
 
   useEffect(() => {
-    console.log('ssr data: ', carsData)
+    // console.log('ssr data: ', carsData)
     setResults([...carsData.photos])
-  }, [])
+    setPage(carsData.page)
+  }, [carsData])
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -30,11 +31,11 @@ const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
         <div className='grid'>
           <SearchPanel setSearchKey={setSearchKey} />
           <FilterPane />
-          <ShowPagination searchKey={searchKey} textType='h4' page={page} setPage={setPage} count={results.length} />
+          <ShowPagination searchKey={searchKey} textType='h4' page={page} setPage={setPage} count={carsData.total_results} />
           <ImageGallery results={results} />
           <button className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button>
           <hr />
-          <ShowPagination searchKey={searchKey} textType='p' page={page} setPage={setPage} count={results.length} />
+          <ShowPagination searchKey={searchKey} textType='p' page={page} setPage={setPage} count={carsData.total_results} />
         </div>
         <Footer />
       </main>
@@ -42,8 +43,22 @@ const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
   );
 };
 
-export async function getServerSideProps() {
-  return { props: { carsData: cars } }
+export async function getServerSideProps(context: {
+  query: {
+    page: string,
+    perPage: string,
+    searchKey: string
+  }
+}) {
+  const { page = '1', perPage = '15', searchKey = 'car' }: {
+    page: string,
+    perPage: string,
+    searchKey: string
+  } = context.query;
+  console.log(context.query)
+  const fetchedData = await fetch(`https://simple-pexels-proxy.onrender.com/search?query=${searchKey}&per_page=${perPage}&page=${page}`)
+  const response = await fetchedData.json();
+  return { props: { carsData: response } }
 }
 
 export default Home;

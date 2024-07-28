@@ -1,5 +1,5 @@
-import React, { useState, MouseEvent, ChangeEvent } from 'react';
-import TablePagination from '@mui/material/TablePagination';
+import React, { useState, MouseEvent, ChangeEvent, MouseEventHandler } from 'react';
+import Link from 'next/link';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -9,41 +9,30 @@ export default function Pagination({ page, setPage, isHidden, count }: {
     isHidden: boolean,
     count: number
 }) {
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-
-    const handleChangePage = (
-        event: MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+    const [pageNumber, setPageNumber] = useState('')
+    const totalPages = Math.ceil(count / 15);
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPageNumber(e.target.value);
+    }
     const btnStyleClasses = 'px-2 border rounded border-slate-300 hover:border-slate-400'
     return (
-        // <TablePagination
-        //     component="div"
-        //     count={100}
-        //     page={page}
-        //     onPageChange={handleChangePage}
-        //     rowsPerPage={rowsPerPage}
-        //     onRowsPerPageChange={handleChangeRowsPerPage}
-        // />
         <div className='mt-4 flex gap-4 items-center'>
             <div className='flex gap-4 items-center'>
                 <p>Page {page} of {count}</p>
-                <button className={btnStyleClasses}><FontAwesomeIcon icon={faAngleLeft} /></button>
-                <button className={btnStyleClasses}><FontAwesomeIcon icon={faAngleRight} /></button>
+                <Link href={`/?page=${page - 1}`}>
+                    <button disabled={page <= 1} className={btnStyleClasses}><FontAwesomeIcon icon={faAngleLeft} /></button>
+                </Link>
+                <Link href={`/?page=${page + 1}`}>
+                    <button disabled={page >= totalPages} className={btnStyleClasses}><FontAwesomeIcon icon={faAngleRight} /></button>
+                </Link>
             </div>
             <div className='flex gap-2 items-center'>
                 <p className='ml-4'>Go to page</p>
-                <input className='w-14 border' />
-                <button className={btnStyleClasses}>{isHidden ? <FontAwesomeIcon icon={faAngleRight} /> : 'Go'}</button>
+                <input onChange={handleOnChange} value={pageNumber} className='w-14 border' />
+                <Link href={`/?page=${pageNumber}`}>
+                    <button className={btnStyleClasses}>{isHidden ? <FontAwesomeIcon icon={faAngleRight} /> : 'Go'}</button>
+                </Link>
+
             </div>
 
         </div>
