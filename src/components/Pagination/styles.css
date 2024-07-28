@@ -1,3 +1,9 @@
+.pagination_bar {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 .pagination_bar h4 {
     font-size: 18px;
     font-weight: bold;
