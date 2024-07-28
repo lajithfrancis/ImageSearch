@@ -13,7 +13,7 @@ export default function ImageCard({ index, item }: {
             <p className="text-sm text-white relative left-2 bottom-8 w-fit name"><b>Photographer: </b>{item.photographer}</p>
             <div className="icon_list">
                 <FontAwesomeIcon className={iconStyleClasses} icon={faCartShopping} />
-                <FontAwesomeIcon className={iconStyleClasses} icon={faDownload} />
+                <a href={item.src.original} download={item.id}><FontAwesomeIcon className={iconStyleClasses} icon={faDownload} /></a>
                 <FontAwesomeIcon className={iconStyleClasses} icon={faPlus} />
                 <FontAwesomeIcon className={iconStyleClasses} icon={faImages} />
             </div>
