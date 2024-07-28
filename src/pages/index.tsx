@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import cars from '@/app/data/cars'
 import { Photo, SearchList } from '@/app/interfaces/SearchList';
 import ImageGallery from '@/components/ImageGallery';
+import Link from 'next/link';
 
 const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
   const [results, setResults] = useState<Photo[]>([])
@@ -20,6 +21,8 @@ const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
     setResults([...carsData.photos])
     setPage(carsData.page)
   }, [carsData])
+  const totalResults = carsData.total_results;
+  const totalPages = Math.ceil(totalResults / 15);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -31,11 +34,14 @@ const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
         <div className='grid'>
           <SearchPanel setSearchKey={setSearchKey} />
           <FilterPane />
-          <ShowPagination searchKey={searchKey} textType='h4' page={page} setPage={setPage} count={carsData.total_results} />
+          <ShowPagination searchKey={searchKey} textType='h4' page={page} setPage={setPage} count={totalResults} totalPages={totalPages} />
           <ImageGallery results={results} />
-          <button className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button>
+          {/* <button disabled={page >= totalPages} className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button> */}
+          <Link className='flex mt-4' href={`/?page=${page + 1}`}>
+            <button disabled={page >= totalPages} className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button>
+          </Link>
           <hr />
-          <ShowPagination searchKey={searchKey} textType='p' page={page} setPage={setPage} count={carsData.total_results} />
+          <ShowPagination searchKey={searchKey} textType='p' page={page} setPage={setPage} count={totalResults} totalPages={totalPages} />
         </div>
         <Footer />
       </main>

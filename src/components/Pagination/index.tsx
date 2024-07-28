@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function Pagination({ page, setPage, isHidden, count }: {
+export default function Pagination({ page, setPage, isHidden, count, totalPages }: {
     page: number,
     setPage: React.Dispatch<React.SetStateAction<number>>,
     isHidden: boolean,
-    count: number
+    count: number,
+    totalPages: number
 }) {
     const [pageNumber, setPageNumber] = useState('')
-    const totalPages = Math.ceil(count / 15);
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPageNumber(e.target.value);
     }
