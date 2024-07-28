@@ -11,15 +11,15 @@ import { Photo, SearchList } from '@/app/interfaces/SearchList';
 import ImageGallery from '@/components/ImageGallery';
 import Link from 'next/link';
 
-const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
+const Home: NextPage<{ carsData: SearchList, searchKeyword: string }> = ({ carsData, searchKeyword = '' }) => {
   const [results, setResults] = useState<Photo[]>([])
   const [page, setPage] = useState(1);
   const [searchKey, setSearchKey] = useState('');
 
   useEffect(() => {
-    // console.log('ssr data: ', carsData)
-    setResults([...carsData.photos])
+    carsData?.photos && setResults([...carsData.photos])
     setPage(carsData.page)
+    setSearchKey(searchKeyword)
   }, [carsData])
   const totalResults = carsData.total_results;
   const totalPages = Math.ceil(totalResults / 15);
@@ -32,16 +32,15 @@ const Home: NextPage<{ carsData: SearchList }> = ({ carsData }) => {
       <main className="mx-auto">
         <Nav />
         <div className='grid'>
-          <SearchPanel setSearchKey={setSearchKey} />
+          <SearchPanel />
           <FilterPane />
-          <ShowPagination searchKey={searchKey} textType='h4' page={page} setPage={setPage} count={totalResults} totalPages={totalPages} />
+          <ShowPagination searchKey={searchKey} textType='h4' page={page} totalPages={totalPages} />
           <ImageGallery results={results} />
-          {/* <button disabled={page >= totalPages} className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button> */}
           <Link className='flex mt-4' href={`/?page=${page + 1}`}>
             <button disabled={page >= totalPages} className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button>
           </Link>
           <hr />
-          <ShowPagination searchKey={searchKey} textType='p' page={page} setPage={setPage} count={totalResults} totalPages={totalPages} />
+          <ShowPagination searchKey={searchKey} textType='p' page={page} totalPages={totalPages} />
         </div>
         <Footer />
       </main>
@@ -64,7 +63,7 @@ export async function getServerSideProps(context: {
   console.log(context.query)
   const fetchedData = await fetch(`https://simple-pexels-proxy.onrender.com/search?query=${searchKey}&per_page=${perPage}&page=${page}`)
   const response = await fetchedData.json();
-  return { props: { carsData: response } }
+  return { props: { carsData: response, searchKeyword: searchKey } }
 }
 
 export default Home;

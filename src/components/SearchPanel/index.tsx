@@ -1,12 +1,22 @@
 import { faMagnifyingGlass, faAngleDown, faImage, faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.css';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import { debounce } from '@/utils/debounce';
 
-export default function SearchPanel({ setSearchKey }: { setSearchKey: React.Dispatch<React.SetStateAction<string>> }) {
+export default function SearchPanel() {
+    const router = useRouter();
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setSearchKey(e.target.value)
+        debouncedSearch(e.target.value)
+
     }
+
+    const debouncedSearch = debounce((value) => {
+        console.log('searching: ', value);
+        if (value)
+            router.push(`/?searchKey=${value}`);
+    }, 500)
 
     return (
         <div className="search_panel">
