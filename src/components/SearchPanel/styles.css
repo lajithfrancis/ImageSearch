@@ -40,4 +40,7 @@
     .search_panel {
         flex-direction: column;
     }
+    .dropdown {
+        justify-content: space-between;
+    }
 }
