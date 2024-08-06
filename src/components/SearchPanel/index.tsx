@@ -1,11 +1,17 @@
 import { faMagnifyingGlass, faAngleDown, faImage, faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.css';
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { debounce } from '@/utils/debounce';
+import { Photo } from '@/app/interfaces/SearchList';
 
-export default function SearchPanel() {
+export default function SearchPanel({ imageDispatch }: {
+    imageDispatch: React.Dispatch<{
+        type: string;
+        payload: Photo[];
+    }>
+}) {
     const router = useRouter();
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         debouncedSearch(e.target.value)
@@ -15,6 +21,10 @@ export default function SearchPanel() {
     const debouncedSearch = debounce((value) => {
         console.log('searching: ', value);
         if (value)
+            imageDispatch({
+                type: 'SET_LOADING',
+                payload: []
+            })
             router.push(`/?searchKey=${value}`);
     }, 500)
 

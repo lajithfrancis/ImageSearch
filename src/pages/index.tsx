@@ -5,19 +5,31 @@ import ShowPagination from '@/components/Pagination/ShowPagination';
 import SearchPanel from '@/components/SearchPanel';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import cars from '@/app/data/cars'
 import { Photo, SearchList } from '@/app/interfaces/SearchList';
 import ImageGallery from '@/components/ImageGallery';
 import Link from 'next/link';
+import { ImageReducer } from '@/reducer/ImageReducer';
+
+export interface Image { isLoading: boolean; data: Photo[]; }
 
 const Home: NextPage<{ carsData: SearchList, searchKeyword: string }> = ({ carsData, searchKeyword = '' }) => {
   const [results, setResults] = useState<Photo[]>([])
   const [page, setPage] = useState(1);
   const [searchKey, setSearchKey] = useState('');
-
+  let initialData: Image = {
+    isLoading: false,
+    data: carsData?.photos
+  }
+  const [photos, dispatch] = useReducer(ImageReducer, initialData)
+  console.log('loading status: ', photos.isLoading)
   useEffect(() => {
     carsData?.photos && setResults([...carsData.photos])
+    carsData?.photos && dispatch({
+      type: 'SET_PHOTOS',
+      payload: carsData.photos
+    })
     setPage(carsData.page)
     setSearchKey(searchKeyword)
   }, [carsData])
@@ -31,11 +43,12 @@ const Home: NextPage<{ carsData: SearchList, searchKeyword: string }> = ({ carsD
       </Head>
       <main className="mx-auto">
         <Nav />
+        {photos.isLoading && 'Loading...'}
         <div className='grid'>
-          <SearchPanel />
+          <SearchPanel imageDispatch={dispatch} />
           <FilterPane />
           <ShowPagination searchKey={searchKey} textType='h4' page={page} totalPages={totalPages} />
-          <ImageGallery results={results} />
+          <ImageGallery results={photos.data} />
           <Link className='flex mt-4' href={`/?page=${page + 1}`}>
             <button disabled={page >= totalPages} className='m-auto mb-12 px-16 py-2 rounded border border-gray-500'>Next page</button>
           </Link>
