@@ -74,8 +74,9 @@ export async function getServerSideProps(context: {
     searchKey: string
   } = context.query;
   console.log(context.query)
-  const fetchedData = await fetch(`https://simple-pexels-proxy.onrender.com/search?query=${searchKey}&per_page=${perPage}&page=${page}`)
-  const response = await fetchedData.json();
+  // const fetchedData = await fetch(`https://simple-pexels-proxy.onrender.com/search?query=${searchKey}&per_page=${perPage}&page=${page}`)
+  // const response = await fetchedData.json();
+  const response = cars
   return { props: { carsData: response, searchKeyword: searchKey } }
 }
 
